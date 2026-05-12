@@ -71,7 +71,6 @@ public class EnrollmentDAO {
 
     public void enroll(int studentId, int courseId) throws AppException {
         try (Connection connection = DatabaseManager.getConnection()) {
-            // The checks and insert run in one transaction so capacity rules stay consistent.
             connection.setAutoCommit(false);
             try {
                 ensureNoDuplicate(connection, studentId, courseId);
@@ -79,11 +78,11 @@ public class EnrollmentDAO {
                 ensureNoScheduleConflict(connection, studentId, courseId);
                 insertEnrollment(connection, studentId, courseId);
                 connection.commit();
-            } catch (AppException | SQLException ex) {
+            } catch (AppException ex) {
                 connection.rollback();
-                if (ex instanceof AppException appException) {
-                    throw appException;
-                }
+                throw ex;
+            } catch (SQLException ex) {
+                connection.rollback();
                 throw new AppException("Could not enroll student.", ex);
             }
         } catch (SQLException ex) {

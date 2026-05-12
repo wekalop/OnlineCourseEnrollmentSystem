@@ -1,31 +1,17 @@
 package com.onlinecourse.model;
 
-public class Admin {
-    private final int id;
-    private final String username;
-    private final String passwordHash;
-    private final String salt;
+public class Admin extends User {
 
     public Admin(int id, String username, String passwordHash, String salt) {
         this.id = id;
         this.username = username;
+        this.name = username;
         this.passwordHash = passwordHash;
         this.salt = salt;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public String getUsername() {
+    @Override
+    public String getDisplayName() {
         return username;
-    }
-
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    public String getSalt() {
-        return salt;
     }
 }
