@@ -61,9 +61,6 @@ public class LoginFrame extends JFrame {
         tabs.addTab("Student Login", buildStudentLoginPanel());
         tabs.addTab("Student Register", buildStudentRegisterPanel());
 
-        JLabel hint = new JLabel("Admin default: admin / admin123");
-        hint.setFont(hint.getFont().deriveFont(Font.PLAIN, 12f));
-        hint.setForeground(ThemeManager.palette().mutedText());
         JCheckBox lightMode = new JCheckBox("Light mode", !ThemeManager.isDarkMode());
         lightMode.addActionListener(event -> {
             ThemeManager.setDarkMode(!lightMode.isSelected());
@@ -71,7 +68,6 @@ public class LoginFrame extends JFrame {
             repaint();
         });
         JPanel footer = new JPanel(new BorderLayout());
-        footer.add(hint, BorderLayout.WEST);
         footer.add(lightMode, BorderLayout.EAST);
 
         root.add(heading, BorderLayout.NORTH);
